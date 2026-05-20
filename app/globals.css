@@ -1,0 +1,24 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: #020617;
+  color: white;
+}
+
+input[type="range"] {
+  accent-color: #f97316;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
