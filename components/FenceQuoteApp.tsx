@@ -61,12 +61,16 @@ export default function FenceQuoteApp() {
   const calc = useMemo(() => {
     const heightMultiplier = height === 4 ? 0.86 : height === 6 ? 1 : 1.24;
     const zipMultiplier =
-      zip.startsWith("75") ? 1.06 :
-      zip.startsWith("76") ? 1.02 :
-      zip.startsWith("77") ? 1.04 :
-      zip.startsWith("78") ? 1.03 :
-      zip.startsWith("79") ? 0.97 :
-      1;
+  zip.startsWith("750") ? 1.15 :
+  zip.startsWith("751") ? 1.12 :
+  zip.startsWith("752") ? 1.18 :
+  zip.startsWith("760") ? 1.05 :
+  zip.startsWith("761") ? 1.08 :
+  zip.startsWith("770") ? 1.14 :
+  zip.startsWith("782") ? 1.10 :
+  zip.startsWith("787") ? 1.20 :
+  zip.startsWith("799") ? 0.92 :
+  1;
     const lowBase = length * MATERIALS[material].low * heightMultiplier * zipMultiplier * TERRAIN_MULTIPLIER[terrain].value * LABOR_MULTIPLIER[labor].value * POST_OPTIONS[postType].value * (1 + Math.max(0, corners - 4) * 0.015);
     const highBase = length * MATERIALS[material].high * heightMultiplier * zipMultiplier * TERRAIN_MULTIPLIER[terrain].value * LABOR_MULTIPLIER[labor].value * POST_OPTIONS[postType].value * (1 + Math.max(0, corners - 4) * 0.015);
     const gateCostLow = gates * 325;
