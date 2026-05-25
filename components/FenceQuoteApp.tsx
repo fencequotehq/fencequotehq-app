@@ -60,7 +60,13 @@ export default function FenceQuoteApp() {
 
   const calc = useMemo(() => {
     const heightMultiplier = height === 4 ? 0.86 : height === 6 ? 1 : 1.24;
-    const zipMultiplier = zip.startsWith("75") ? 1.06 : zip.startsWith("76") ? 1.02 : 1;
+    const zipMultiplier =
+      zip.startsWith("75") ? 1.06 :
+      zip.startsWith("76") ? 1.02 :
+      zip.startsWith("77") ? 1.04 :
+      zip.startsWith("78") ? 1.03 :
+      zip.startsWith("79") ? 0.97 :
+      1;
     const lowBase = length * MATERIALS[material].low * heightMultiplier * zipMultiplier * TERRAIN_MULTIPLIER[terrain].value * LABOR_MULTIPLIER[labor].value * POST_OPTIONS[postType].value * (1 + Math.max(0, corners - 4) * 0.015);
     const highBase = length * MATERIALS[material].high * heightMultiplier * zipMultiplier * TERRAIN_MULTIPLIER[terrain].value * LABOR_MULTIPLIER[labor].value * POST_OPTIONS[postType].value * (1 + Math.max(0, corners - 4) * 0.015);
     const gateCostLow = gates * 325;
@@ -270,7 +276,21 @@ export default function FenceQuoteApp() {
 
       {mode === "pro" && (
   <div id="pro-mode">
-    <ProMode ( pro={pro} updatePro={updatePro} customer={customer} updateCustomer={updateCustomer} company={company} updateCompany={updateCompany} scopeNotes={scopeNotes} setScopeNotes={setScopeNotes} takeoff={takeoff} proEstimate={proEstimate} downloadProposalPDF={downloadProposalPDF} />}
+    <ProMode
+      pro={pro}
+      updatePro={updatePro}
+      customer={customer}
+      updateCustomer={updateCustomer}
+      company={company}
+      updateCompany={updateCompany}
+      scopeNotes={scopeNotes}
+      setScopeNotes={setScopeNotes}
+      takeoff={takeoff}
+      proEstimate={proEstimate}
+      downloadProposalPDF={downloadProposalPDF}
+    />
+  </div>
+)}
 
       <section className="mx-auto grid max-w-7xl gap-6 px-5 pb-12 md:grid-cols-3 md:px-10">
         {[{ icon: Layers, title: "Accuracy Logic", text: "Uses length, height, material, gates, post system, removal, terrain, corners, stain, and local market multipliers." }, { icon: ClipboardCheck, title: "Contractor-Ready", text: "Captures project details in a format a fence contractor can quickly review and bid." }, { icon: Star, title: "Sticky Experience", text: "Visual preview, quote score, lot estimator, takeoff, and proposal PDFs keep users engaged." }].map((item) => <Card key={item.title} className="p-6"><item.icon className="mb-4 text-orange-300" /><h3 className="text-xl font-black">{item.title}</h3><p className="mt-2 text-slate-300">{item.text}</p></Card>)}
