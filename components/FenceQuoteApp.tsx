@@ -268,7 +268,9 @@ export default function FenceQuoteApp() {
         </Card>
       </section>
 
-      {mode === "pro" && <ProMode pro={pro} updatePro={updatePro} customer={customer} updateCustomer={updateCustomer} company={company} updateCompany={updateCompany} scopeNotes={scopeNotes} setScopeNotes={setScopeNotes} takeoff={takeoff} proEstimate={proEstimate} downloadProposalPDF={downloadProposalPDF} />}
+      {mode === "pro" && (
+  <div id="pro-mode">
+    <ProMode ( pro={pro} updatePro={updatePro} customer={customer} updateCustomer={updateCustomer} company={company} updateCompany={updateCompany} scopeNotes={scopeNotes} setScopeNotes={setScopeNotes} takeoff={takeoff} proEstimate={proEstimate} downloadProposalPDF={downloadProposalPDF} />}
 
       <section className="mx-auto grid max-w-7xl gap-6 px-5 pb-12 md:grid-cols-3 md:px-10">
         {[{ icon: Layers, title: "Accuracy Logic", text: "Uses length, height, material, gates, post system, removal, terrain, corners, stain, and local market multipliers." }, { icon: ClipboardCheck, title: "Contractor-Ready", text: "Captures project details in a format a fence contractor can quickly review and bid." }, { icon: Star, title: "Sticky Experience", text: "Visual preview, quote score, lot estimator, takeoff, and proposal PDFs keep users engaged." }].map((item) => <Card key={item.title} className="p-6"><item.icon className="mb-4 text-orange-300" /><h3 className="text-xl font-black">{item.title}</h3><p className="mt-2 text-slate-300">{item.text}</p></Card>)}
