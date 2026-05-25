@@ -202,7 +202,17 @@ export default function FenceQuoteApp() {
             <p className="mt-5 max-w-xl text-lg text-slate-300">FenceQuoteHQ combines cost estimating, lot planning, quote scoring, material takeoff, lead capture, and contractor-grade proposal PDFs.</p>
             <div className="mt-7 flex flex-wrap gap-3">
               <Button onClick={() => document.getElementById("calculator")?.scrollIntoView()} className="bg-orange-500 hover:bg-orange-600 shadow-glow">Start Estimate <ArrowRight className="ml-2" size={18} /></Button>
-              <Button onClick={() => setMode("pro")} className="border border-slate-600 bg-slate-900 hover:bg-slate-800">Open Pro Mode</Button>
+              <Button
+                onClick={() => {
+                  setMode("pro");
+                  setTimeout(() => {
+                    document.getElementById("pro-mode")?.scrollIntoView({ behavior: "smooth" });
+                  }, 200);
+                }}
+                className="border border-slate-600 bg-slate-900 hover:bg-slate-800"
+               >
+                Open Pro Mode
+               </Button>
             </div>
           </motion.div>
           <Card className="relative bg-slate-900/85 p-6">
