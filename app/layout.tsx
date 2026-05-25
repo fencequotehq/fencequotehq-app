@@ -4,7 +4,6 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "FenceQuoteHQ | Fence Cost Calculator & Contractor Bid Software",
   description: "FenceQuoteHQ helps Texas homeowners estimate fence costs, compare contractor quotes, and generate contractor-grade fence planning reports.",
-  metadataBase: new URL("https://fencequotehq.com"),
   openGraph: {
     title: "FenceQuoteHQ",
     description: "Fence planning, cost estimating, quote scoring, and contractor proposal software.",
