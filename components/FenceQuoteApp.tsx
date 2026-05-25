@@ -142,10 +142,12 @@ export default function FenceQuoteApp() {
   function updateCompany(field: string, value: any) { setCompany((prev) => ({ ...prev, [field]: value })); }
 
   function validateLead() {
-    if (!lead.name.trim()) return "Please enter your name.";
-    if (!/^\\S+@\\S+\\.\\S+$/.test(lead.email)) return "Please enter a valid email address.";
-    return "";
+  if (!lead.name.trim()) return "Please enter your name.";
+  if (!lead.email.trim() || !lead.email.includes("@") || !lead.email.includes(".")) {
+    return "Please enter a valid email address.";
   }
+  return "";
+}
 
   function buildLeadRecord() {
     return { id: `lead-${Date.now()}`, createdAt: new Date().toISOString(), lead, estimate: estimateData, rawEstimate: calc, source: "FenceQuoteHQ" };
