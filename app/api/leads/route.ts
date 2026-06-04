@@ -28,14 +28,11 @@ if (error) {
   console.error("Supabase insert error:", error);
 
   return NextResponse.json(
-    {
-      ok: false,
-      error: error.message
-    },
+    { ok: false,error: error.message},
     { status: 500 }
   );
+ }
 }
-    }
 
     const resendKey = process.env.RESEND_API_KEY;
     const alertEmail = process.env.LEAD_ALERT_EMAIL;
