@@ -11,7 +11,9 @@ export async function POST(req: Request) {
 
     if (supabaseUrl && serviceKey) {
       const supabase = createClient(supabaseUrl, serviceKey);
-      await supabase.from("leads").insert({
+      const { error } = await
+      supabase. from("leads").insert
+      ({
         source: body.source || "FenceQuoteHQ",
         name: body.lead?.name,
         email: body.lead?.email,
