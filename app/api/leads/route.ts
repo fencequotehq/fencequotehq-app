@@ -10,8 +10,7 @@ export async function POST(req: Request) {
     const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
     if (supabaseUrl && serviceKey) {
-      const supabase = createClient(supabaseUrl, serviceKey);
-      const { error } = await
+      const supabase = createClient(supabaseUrl, serviceKey)
       const { error } = await supabase.from("leads").insert({
   source: body.source || "FenceQuoteHQ",
   name: body.lead?.name,
