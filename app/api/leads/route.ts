@@ -12,19 +12,30 @@ export async function POST(req: Request) {
     if (supabaseUrl && serviceKey) {
       const supabase = createClient(supabaseUrl, serviceKey);
       const { error } = await
-      supabase. from("leads").insert
-      ({
-        source: body.source || "FenceQuoteHQ",
-        name: body.lead?.name,
-        email: body.lead?.email,
-        phone: body.lead?.phone,
-        timeline: body.lead?.timeline,
-        wants_quotes: body.lead?.quotes,
-        zip: body.estimate?.zip,
-        estimate_low: body.rawEstimate?.low,
-        estimate_high: body.rawEstimate?.high,
-        estimate_json: body
-      });
+      const { error } = await supabase.from("leads").insert({
+  source: body.source || "FenceQuoteHQ",
+  name: body.lead?.name,
+  email: body.lead?.email,
+  phone: body.lead?.phone,
+  timeline: body.lead?.timeline,
+  wants_quotes: body.lead?.quotes,
+  zip: body.estimate?.zip,
+  estimate_low: body.rawEstimate?.low,
+  estimate_high: body.rawEstimate?.high,
+  estimate_json: body
+});
+
+if (error) {
+  console.error("Supabase insert error:", error);
+
+  return NextResponse.json(
+    {
+      ok: false,
+      error: error.message
+    },
+    { status: 500 }
+  );
+}
     }
 
     const resendKey = process.env.RESEND_API_KEY;
