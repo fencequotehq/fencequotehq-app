@@ -1,44 +1,20 @@
-export const MATERIALS = {
-  cedar: { label: "Cedar Privacy", low: 34, high: 52, lifespan: "15–25 yrs", maintenance: "Medium", privacy: "High", curb: 9, note: "Best all-around Texas homeowner choice." },
-  pine: { label: "Pressure-Treated Pine", low: 26, high: 42, lifespan: "10–15 yrs", maintenance: "Medium", privacy: "High", curb: 7, note: "Budget-friendly wood option." },
-  vinyl: { label: "Vinyl", low: 40, high: 65, lifespan: "20–30 yrs", maintenance: "Low", privacy: "High", curb: 8, note: "Higher upfront cost, lower maintenance." },
-  chain: { label: "Chain Link", low: 18, high: 32, lifespan: "15–20 yrs", maintenance: "Low", privacy: "Low", curb: 4, note: "Lowest cost, good for pets and boundaries." },
-  metal: { label: "Ornamental Metal", low: 45, high: 80, lifespan: "25+ yrs", maintenance: "Low", privacy: "Low", curb: 10, note: "Premium curb appeal and durability." },
-} as const;
+Found the problem. Your `fenceData.ts` file is **incomplete** — it only has `MATERIALS` and `LABOR_MULTIPLIER` but is missing these exports that `FenceQuoteApp.tsx` needs:
 
-export const LABOR_MULTIPLIER = {
-  budget: { label: "Budget", value: 0.9, badge: "Lowest price" },
-  standard: { label: "Standard", value: 1.0, badge: "Best value" },
-  premium: { label: "Premium", value: 1.18, badge: "Stronger build" },
-} as const;
+- `TERRAIN_MULTIPLIER`
+- `POST_OPTIONS`
+- `PRO_DEFAULTS`
+- `currency` (function)
+- `todayStamp` (function)
 
-export const TERRAIN_MULTIPLIER = {
-  flat: { label: "Flat / Easy", value: 1.0 },
-  normal: { label: "Normal Yard", value: 1.08 },
-  sloped: { label: "Sloped / Difficult", value: 1.2 },
-} as const;
+That's why it won't compile. Here's the complete fixed `fenceData.ts` — replace your entire file with this:
 
-export const POST_OPTIONS = {
-  wood: { label: "Wood Posts", value: 1, durability: "Standard" },
-  steel: { label: "Steel Posts", value: 1.12, durability: "Recommended" },
-  reinforced: { label: "Reinforced Steel + Deep Set", value: 1.2, durability: "Premium" },
-} as const;
+Download that file, then replace your `lib/fenceData.ts` in GitHub with it. Here's how:
 
-export const PRO_DEFAULTS = {
-  hourlyRate: 55,
-  crewSize: 2,
-  overheadPercent: 12,
-  profitPercent: 22,
-  contingencyPercent: 8,
-  depositPercent: 35,
-  warranty: "1-year workmanship warranty",
-  paymentTerms: "35% deposit, 55% progress payment, 10% due at completion",
-};
+**To replace it in GitHub on mobile:**
+1. Open `lib/fenceData.ts` in your repo
+2. Tap the **pencil/edit icon** (top right)
+3. Select all the existing code → delete it
+4. Paste the new code
+5. Tap **Commit changes**
 
-export function currency(num: number) {
-  return num.toLocaleString("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 });
-}
-
-export function todayStamp() {
-  return new Date().toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
-}
+Vercel will auto-redeploy and the build error should be gone. Let me know what happens after you commit it.
