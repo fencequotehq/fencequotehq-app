@@ -1,3 +1,8 @@
+I can see exactly what happened — my chat instructions got pasted into the file instead of the actual code. The same problem as before.
+
+Let's fix it right now. Go to GitHub → `app/page.tsx` → click the **pencil icon** to edit → **Ctrl+A → Delete** → then paste this code directly:
+
+```tsx
 import type { Metadata } from "next";
 import FenceQuoteApp from "@/components/FenceQuoteApp";
 
@@ -76,3 +81,6 @@ export default function Home() {
     </>
   );
 }
+```
+
+Copy everything between the triple backticks and paste it into the GitHub editor. Commit when done.
