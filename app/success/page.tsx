@@ -8,7 +8,7 @@ export default function Success() {
           Your subscription is active. You now have full access to the Bid Builder, Material Takeoff Pro, and Proposal PDF generator.
         </p>
         
-          href="/"
+        <a href="/"
           className="inline-flex items-center justify-center rounded-2xl bg-orange-500 px-6 py-3 font-bold hover:bg-orange-600 transition"
         >
           Go to Dashboard
