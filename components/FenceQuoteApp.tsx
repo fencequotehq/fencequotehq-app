@@ -371,6 +371,7 @@ export default function FenceQuoteApp() {
               >
                 Open Pro Mode
               </Button>
+              <UpgradeButton />
             </div>
           </motion.div>
           <Card className="relative bg-slate-900/85 p-6">
