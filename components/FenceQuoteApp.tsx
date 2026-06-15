@@ -22,7 +22,34 @@ function Button({ children, className = "", ...props }: React.ButtonHTMLAttribut
 function Card({ children, className = "" }: { children: React.ReactNode; className?: string }) {
   return <div className={`rounded-[2rem] border border-slate-700 bg-slate-900 shadow-xl shadow-black/20 ${className}`}>{children}</div>;
 }
+function UpgradeButton() {
+  const [loading, setLoading] = useState(false);
 
+  async function handleUpgrade() {
+    setLoading(true);
+    try {
+      const res = await fetch("/api/checkout", { method: "POST" });
+      const data = await res.json();
+      if (data.url) {
+        window.location.href = data.url;
+      }
+    } catch (err) {
+      alert("Something went wrong. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  return (
+    <button
+      onClick={handleUpgrade}
+      disabled={loading}
+      className="inline-flex items-center justify-center rounded-2xl bg-orange-500 px-5 py-3 font-bold transition hover:bg-orange-600 disabled:opacity-50"
+    >
+      {loading ? "Loading..." : "Upgrade to Pro – $49/mo"}
+    </button>
+  );
+}
 function Metric({ icon, label, value }: any) {
   return (
     <div className="rounded-2xl bg-slate-800 p-4">
