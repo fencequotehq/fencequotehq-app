@@ -58,7 +58,7 @@ export default function BlogPost() {
             href="/#calculator"
             className="inline-flex items-center justify-center rounded-2xl bg-orange-500 px-6 py-3 font-bold hover:bg-orange-600 transition"
           >
-            Check Your Quote Now
+            Build Your Fence Estimate
           </Link>
         </div>
 
