@@ -16,6 +16,22 @@ export const metadata: Metadata = {
   },
 };
 
+import Link from "next/link";
+
 export default function Home() {
-  return <FenceQuoteApp />;
+  return (
+    <>
+      <FenceQuoteApp />
+      <section className="mx-auto max-w-7xl px-5 pb-12 md:px-10">
+        <div className="rounded-2xl border border-slate-800 bg-slate-900 p-6 text-center">
+          <p className="text-slate-400">
+            Want to understand fence pricing better?{" "}
+            <Link href="/blog/why-is-my-fence-quote-expensive" className="font-bold text-orange-400 hover:text-orange-300 underline">
+              Read: Why Is My Fence Quote So Expensive?
+            </Link>
+          </p>
+        </div>
+      </section>
+    </>
+  );
 }
