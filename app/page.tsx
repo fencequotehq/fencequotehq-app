@@ -26,7 +26,7 @@ export default function Home() {
         <div className="rounded-2xl border border-slate-800 bg-slate-900 p-6 text-center">
           <p className="text-slate-400">
             Want to understand fence pricing better?{" "}
-            <Link href="/blog/why-is-my-fence-quote-expensive" className="font-bold text-orange-400 hover:text-orange-300 underline">
+            <Link href="/blog/why-my-fence-quote-expensive" className="font-bold text-orange-400 hover:text-orange-300 underline">
               Read: Why Is My Fence Quote So Expensive?
             </Link>
           </p>
