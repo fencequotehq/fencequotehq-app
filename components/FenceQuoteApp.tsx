@@ -185,7 +185,7 @@ export default function FenceQuoteApp() {
   const [lotWidth, setLotWidth] = useState(60);
   const [lotDepth, setLotDepth] = useState(120);
   const [layout, setLayout] = useState<"backyard" | "full" | "pool">("backyard");
-  const [contractorBid, setContractorBid] = useState(7500);
+  const [contractorBid, setContractorBid] = useState<number | "">("");
   const [lead, setLead] = useState({ name: "", email: "", phone: "", timeline: "Within 30 days", quotes: true });
   const [leadStatus, setLeadStatus] = useState<string | null>(null);
   const [leadError, setLeadError] = useState("");
@@ -450,7 +450,7 @@ export default function FenceQuoteApp() {
           </Card>
           <Card className="p-6">
             <div className="mb-4 flex items-center gap-2"><ShieldCheck className="text-emerald-300" /><h3 className="text-xl font-black">Contractor Quote Score</h3></div>
-            <input type="number" value={contractorBid} onChange={(e) => setContractorBid(Number(e.target.value))} className="input mb-3" />
+            <input type="number" value={contractorBid} onChange={(e) => setContractorBid(e.target.value === "" ? "" : Number(e.target.value))} className="input mb-3" />
             <h4 className={`text-2xl font-black ${quoteScore.color}`}>{quoteScore.label}</h4>
             <p className="text-slate-300">{quoteScore.text}</p>
           </Card>
