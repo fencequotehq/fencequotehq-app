@@ -180,7 +180,7 @@ export default function FenceQuoteApp() {
   const [terrain, setTerrain] = useState<TerrainKey>("normal");
   const [labor, setLabor] = useState<LaborKey>("standard");
   const [postType, setPostType] = useState<PostKey>("steel");
-  const [corners, setCorners] = useState(4);
+  const [corners, setCorners] = useState(4); Okay
   const [stain, setStain] = useState(false);
   const [lotWidth, setLotWidth] = useState(60);
   const [lotDepth, setLotDepth] = useState(120);
@@ -450,7 +450,7 @@ export default function FenceQuoteApp() {
           </Card>
           <Card className="p-6">
             <div className="mb-4 flex items-center gap-2"><ShieldCheck className="text-emerald-300" /><h3 className="text-xl font-black">Contractor Quote Score</h3></div>
-           onChange={(e) => setContractorBid(Number(e.target.value))} className="input mb-3" />
+           <input type="number" value={contractorBid} onChange={(e) => setContractorBid(Number(e.target.value))} className="input mb-3" />
             <h4 className={`text-2xl font-black ${quoteScore.color}`}>{quoteScore.label}</h4>
             <p className="text-slate-300">{quoteScore.text}</p>
           </Card>
@@ -460,7 +460,7 @@ export default function FenceQuoteApp() {
       <section className="mx-auto grid max-w-7xl gap-6 px-5 pb-8 md:grid-cols-2 md:px-10">
         <Card className="p-6">
           <div className="mb-4 flex items-center gap-2"><MapPin className="text-sky-300" /><h3 className="text-xl font-black">Property Line / Lot Size Estimator</h3></div>
-          <div className="grid gap-4 md:grid-cols-2">
+          <div className="grid gap-4 md:grid-cols-2"> Play I'm
             <Input label="Lot width" value={lotWidth} setValue={setLotWidth} />
             <Input label="Lot depth" value={lotDepth} setValue={setLotDepth} />
           </div>
