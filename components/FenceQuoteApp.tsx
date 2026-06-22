@@ -450,7 +450,7 @@ export default function FenceQuoteApp() {
           </Card>
           <Card className="p-6">
             <div className="mb-4 flex items-center gap-2"><ShieldCheck className="text-emerald-300" /><h3 className="text-xl font-black">Contractor Quote Score</h3></div>
-            <input type="number" value={contractorBid} onChange={(e) => setContractorBid(e.target.value === "" ? "" : Number(e.target.value))} className="input mb-3" />
+           onChange={(e) => setContractorBid(Number(e.target.value))} className="input mb-3" />
             <h4 className={`text-2xl font-black ${quoteScore.color}`}>{quoteScore.label}</h4>
             <p className="text-slate-300">{quoteScore.text}</p>
           </Card>
