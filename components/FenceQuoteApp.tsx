@@ -1,4 +1,4 @@
-"use client";
+What's 513 41 Carla"use client";
 
 import React, { useMemo, useState } from "react";
 import { motion } from "framer-motion";
@@ -185,7 +185,7 @@ export default function FenceQuoteApp() {
   const [lotWidth, setLotWidth] = useState(60);
   const [lotDepth, setLotDepth] = useState(120);
   const [layout, setLayout] = useState<"backyard" | "full" | "pool">("backyard");
-  const [contractorBid, setContractorBid] = useState<number | "">("");
+  const [contractorBid, setContractorBid] = useState(0);
   const [lead, setLead] = useState({ name: "", email: "", phone: "", timeline: "Within 30 days", quotes: true });
   const [leadStatus, setLeadStatus] = useState<string | null>(null);
   const [leadError, setLeadError] = useState("");
