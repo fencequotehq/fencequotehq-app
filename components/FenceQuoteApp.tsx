@@ -180,7 +180,7 @@ export default function FenceQuoteApp() {
   const [terrain, setTerrain] = useState<TerrainKey>("normal");
   const [labor, setLabor] = useState<LaborKey>("standard");
   const [postType, setPostType] = useState<PostKey>("steel");
-  const [corners, setCorners] = useState(4); Okay
+  const [corners, setCorners] = useState(4); 
   const [stain, setStain] = useState(false);
   const [lotWidth, setLotWidth] = useState(60);
   const [lotDepth, setLotDepth] = useState(120);
