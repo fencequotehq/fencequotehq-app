@@ -460,7 +460,7 @@ export default function FenceQuoteApp() {
       <section className="mx-auto grid max-w-7xl gap-6 px-5 pb-8 md:grid-cols-2 md:px-10">
         <Card className="p-6">
           <div className="mb-4 flex items-center gap-2"><MapPin className="text-sky-300" /><h3 className="text-xl font-black">Property Line / Lot Size Estimator</h3></div>
-          <div className="grid gap-4 md:grid-cols-2"> Play I'm
+          <div className="grid gap-4 md:grid-cols-2"> 
             <Input label="Lot width" value={lotWidth} setValue={setLotWidth} />
             <Input label="Lot depth" value={lotDepth} setValue={setLotDepth} />
           </div>
