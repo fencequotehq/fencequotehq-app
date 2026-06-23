@@ -263,10 +263,10 @@ export default function FenceQuoteApp() {
   }, [removal, length, corners, takeoff.posts, postType, material, gates, stain, pro, calc]);
 
   const quoteScore = useMemo(() => {
-    const diff = ((contractorBid - calc.mid) / calc.mid) * 100;
-    if (diff < -18) return { label: "Suspiciously Low", color: "text-red-300", text: "This bid may be missing scope, materials, tear-out, permit, or durability details." };
-    if (diff < 12) return { label: "Fair Quote", color: "text-emerald-300", text: "This bid is inside a reasonable planning range." };
-    if (diff < 28) return { label: "Slightly High", color: "text-yellow-300", text: "Ask what premium materials, warranty, post system, or prep work justify the price." };
+    
+    if (contractorBid > 0 && contractorBid < calc.low * 0.92) return { label: "Suspiciously Low", color: "text-red-300", text: "This bid may be missing scope, materials, tear-out, permit, or durability details." };
+if (contractorBid <= calc.high * 1.08) return { label: "Fair Quote", color: "text-emerald-300", text: "This bid is inside a reasonable planning range." };
+if (contractorBid <= calc.high * 1.20) return { label: "Slightly High", color: "text-yellow-300", text: "Ask what premium materials, warranty, post system, or prep work justify the price." };
     return { label: "Overpriced", color: "text-red-300", text: "This quote is well above the planning range. Get at least two more bids." };
   }, [contractorBid, calc.mid]);
 
