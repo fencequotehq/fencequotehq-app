@@ -9,7 +9,7 @@ import {
   ShieldCheck, Sparkles, Star, Trophy, AlertTriangle, Layers
 } from "lucide-react";
 import { MATERIALS, LABOR_MULTIPLIER, TERRAIN_MULTIPLIER, POST_OPTIONS, PRO_DEFAULTS, currency, todayStamp } from "@/lib/fenceData";
-
+import AIQuoteChat from "@/components/AIQuoteChat";
 type MaterialKey = keyof typeof MATERIALS;
 type LaborKey = keyof typeof LABOR_MULTIPLIER;
 type TerrainKey = keyof typeof TERRAIN_MULTIPLIER;
