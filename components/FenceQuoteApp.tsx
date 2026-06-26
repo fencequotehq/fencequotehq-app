@@ -511,16 +511,17 @@ if (contractorBid <= calc.high * 1.20) return { label: "Slightly High", color: "
             scopeNotes={scopeNotes} setScopeNotes={setScopeNotes}
             takeoff={takeoff} proEstimate={proEstimate}
             downloadProposalPDF={downloadProposalPDF}
+        />
+        </div>
+        <div className="mx-auto max-w-7xl px-5 pb-8 md:px-10">
+          <AIQuoteChat
+            isPro={false}
+            sessionToken=""
+            initialContext={`${length}ft ${MATERIALS[material].label}, ${terrain} terrain, ${gates} gates, ZIP ${zip}`}
           />
         </div>
-          <div className="mx-auto max-w-7xl px-5 pb-8 md:px-10">
-        <AIQuoteChat
-          isPro={false}
-          sessionToken=""
-          initialContext={`${length}ft ${MATERIALS[material].label}, ${terrain} terrain, ${gates} gates, ZIP ${zip}`}
-        />
       </div>
-      )}
+    )}
 
       <section className="mx-auto grid max-w-7xl gap-6 px-5 pb-12 md:grid-cols-3 md:px-10">
         {[
