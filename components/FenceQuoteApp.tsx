@@ -10,6 +10,7 @@ import {
 } from "lucide-react";
 import { MATERIALS, LABOR_MULTIPLIER, TERRAIN_MULTIPLIER, POST_OPTIONS, PRO_DEFAULTS, currency, todayStamp } from "@/lib/fenceData";
 import AIQuoteChat from "@/components/AIQuoteChat";
+
 type MaterialKey = keyof typeof MATERIALS;
 type LaborKey = keyof typeof LABOR_MULTIPLIER;
 type TerrainKey = keyof typeof TERRAIN_MULTIPLIER;
@@ -22,6 +23,7 @@ function Button({ children, className = "", ...props }: React.ButtonHTMLAttribut
 function Card({ children, className = "" }: { children: React.ReactNode; className?: string }) {
   return <div className={`rounded-[2rem] border border-slate-700 bg-slate-900 shadow-xl shadow-black/20 ${className}`}>{children}</div>;
 }
+
 function UpgradeButton() {
   const [loading, setLoading] = useState(false);
 
@@ -50,6 +52,7 @@ function UpgradeButton() {
     </button>
   );
 }
+
 function Metric({ icon, label, value }: any) {
   return (
     <div className="rounded-2xl bg-slate-800 p-4">
@@ -180,7 +183,7 @@ export default function FenceQuoteApp() {
   const [terrain, setTerrain] = useState<TerrainKey>("normal");
   const [labor, setLabor] = useState<LaborKey>("standard");
   const [postType, setPostType] = useState<PostKey>("steel");
-  const [corners, setCorners] = useState(4); 
+  const [corners, setCorners] = useState(4);
   const [stain, setStain] = useState(false);
   const [lotWidth, setLotWidth] = useState(60);
   const [lotDepth, setLotDepth] = useState(120);
@@ -263,10 +266,9 @@ export default function FenceQuoteApp() {
   }, [removal, length, corners, takeoff.posts, postType, material, gates, stain, pro, calc]);
 
   const quoteScore = useMemo(() => {
-    
     if (contractorBid > 0 && contractorBid < calc.low * 0.92) return { label: "Suspiciously Low", color: "text-red-300", text: "This bid may be missing scope, materials, tear-out, permit, or durability details." };
-if (contractorBid <= calc.high * 1.08) return { label: "Fair Quote", color: "text-emerald-300", text: "This bid is inside a reasonable planning range." };
-if (contractorBid <= calc.high * 1.20) return { label: "Slightly High", color: "text-yellow-300", text: "Ask what premium materials, warranty, post system, or prep work justify the price." };
+    if (contractorBid <= calc.high * 1.08) return { label: "Fair Quote", color: "text-emerald-300", text: "This bid is inside a reasonable planning range." };
+    if (contractorBid <= calc.high * 1.20) return { label: "Slightly High", color: "text-yellow-300", text: "Ask what premium materials, warranty, post system, or prep work justify the price." };
     return { label: "Overpriced", color: "text-red-300", text: "This quote is well above the planning range. Get at least two more bids." };
   }, [contractorBid, calc.mid]);
 
@@ -450,7 +452,7 @@ if (contractorBid <= calc.high * 1.20) return { label: "Slightly High", color: "
           </Card>
           <Card className="p-6">
             <div className="mb-4 flex items-center gap-2"><ShieldCheck className="text-emerald-300" /><h3 className="text-xl font-black">Contractor Quote Score</h3></div>
-           <input type="number" value={contractorBid || ""} onChange={(e) => setContractorBid(Number(e.target.value))} placeholder="Enter contractor's bid amount" className="input mb-3" />
+            <input type="number" value={contractorBid || ""} onChange={(e) => setContractorBid(Number(e.target.value))} placeholder="Enter contractor's bid amount" className="input mb-3" />
             <h4 className={`text-2xl font-black ${quoteScore.color}`}>{quoteScore.label}</h4>
             <p className="text-slate-300">{quoteScore.text}</p>
           </Card>
@@ -460,7 +462,7 @@ if (contractorBid <= calc.high * 1.20) return { label: "Slightly High", color: "
       <section className="mx-auto grid max-w-7xl gap-6 px-5 pb-8 md:grid-cols-2 md:px-10">
         <Card className="p-6">
           <div className="mb-4 flex items-center gap-2"><MapPin className="text-sky-300" /><h3 className="text-xl font-black">Property Line / Lot Size Estimator</h3></div>
-          <div className="grid gap-4 md:grid-cols-2"> 
+          <div className="grid gap-4 md:grid-cols-2">
             <Input label="Lot width" value={lotWidth} setValue={setLotWidth} />
             <Input label="Lot depth" value={lotDepth} setValue={setLotDepth} />
           </div>
@@ -511,17 +513,16 @@ if (contractorBid <= calc.high * 1.20) return { label: "Slightly High", color: "
             scopeNotes={scopeNotes} setScopeNotes={setScopeNotes}
             takeoff={takeoff} proEstimate={proEstimate}
             downloadProposalPDF={downloadProposalPDF}
-        />
-        </div>
-        <div className="mx-auto max-w-7xl px-5 pb-8 md:px-10">
-          <AIQuoteChat
-            isPro={false}
-            sessionToken=""
-            initialContext={`${length}ft ${MATERIALS[material].label}, ${terrain} terrain, ${gates} gates, ZIP ${zip}`}
           />
+          <div className="mx-auto max-w-7xl px-5 pb-8 md:px-10">
+            <AIQuoteChat
+              isPro={false}
+              sessionToken=""
+              initialContext={`${length}ft ${MATERIALS[material].label}, ${terrain} terrain, ${gates} gates, ZIP ${zip}`}
+            />
+          </div>
         </div>
-      </div>
-    )}
+      )}
 
       <section className="mx-auto grid max-w-7xl gap-6 px-5 pb-12 md:grid-cols-3 md:px-10">
         {[
