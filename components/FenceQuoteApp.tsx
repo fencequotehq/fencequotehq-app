@@ -564,7 +564,7 @@ export default function FenceQuoteApp() {
           />
           <div className="mx-auto max-w-7xl px-5 pb-8 md:px-10">
             <AIQuoteChat
-              isPro={profile?.is_pro ?? false}
+              isPro={true}
               sessionToken={session?.access_token ?? ""}
               initialContext={`${length}ft ${MATERIALS[material].label}, ${terrain} terrain, ${gates} gates, ZIP ${zip}`}
             />
