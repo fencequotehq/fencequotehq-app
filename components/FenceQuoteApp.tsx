@@ -1,15 +1,22 @@
 "use client";
 
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { jsPDF } from "jspdf";
+import { createClient } from "@supabase/supabase-js";
 import {
   ArrowRight, Calculator, CheckCircle2, ClipboardCheck, Database, DollarSign,
   Download, Fence, Flame, Gauge, Hammer, Mail, MapPin, Ruler, Send,
-  ShieldCheck, Sparkles, Star, Trophy, AlertTriangle, Layers
+  ShieldCheck, Sparkles, Star, Trophy, AlertTriangle, Layers, LogIn, LogOut
 } from "lucide-react";
 import { MATERIALS, LABOR_MULTIPLIER, TERRAIN_MULTIPLIER, POST_OPTIONS, PRO_DEFAULTS, currency, todayStamp } from "@/lib/fenceData";
 import AIQuoteChat from "@/components/AIQuoteChat";
+import AuthModal from "@/components/AuthModal";
+
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+);
 
 type MaterialKey = keyof typeof MATERIALS;
 type LaborKey = keyof typeof LABOR_MULTIPLIER;
@@ -198,6 +205,29 @@ export default function FenceQuoteApp() {
   const [customer, setCustomer] = useState({ name: "", address: "", city: "", phone: "", email: "" });
   const [company, setCompany] = useState({ name: "FenceQuoteHQ", phone: "", email: "", website: "FenceQuoteHQ.com" });
   const [scopeNotes, setScopeNotes] = useState("Install fence per selected specifications. Includes standard post setting, gate installation, cleanup, and haul-off where selected.");
+  const [session, setSession] = useState<any>(null);
+  const [profile, setProfile] = useState<any>(null);
+  const [showAuth, setShowAuth] = useState(false);
+
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data }) => {
+      setSession(data.session);
+      if (data.session) {
+        supabase.from("profiles").select("is_pro").eq("id", data.session.user.id).single()
+          .then(({ data: p }) => setProfile(p));
+      }
+    });
+    const { data: listener } = supabase.auth.onAuthStateChange((_event, session) => {
+      setSession(session);
+      if (session) {
+        supabase.from("profiles").select("is_pro").eq("id", session.user.id).single()
+          .then(({ data: p }) => setProfile(p));
+      } else {
+        setProfile(null);
+      }
+    });
+    return () => listener.subscription.unsubscribe();
+  }, []);
 
   const lotEstimate = useMemo(() => {
     let estimated = layout === "full" ? lotWidth * 2 + lotDepth * 2 : layout === "pool" ? Math.round((lotWidth + lotDepth) * 0.9) : lotWidth + lotDepth * 2;
@@ -351,6 +381,24 @@ export default function FenceQuoteApp() {
 
   return (
     <main className="min-h-screen overflow-hidden bg-slate-950 text-white">
+
+      {/* Auth bar */}
+      <div className="flex justify-end px-5 py-3 md:px-10">
+        {session ? (
+          <div className="flex items-center gap-3">
+            {profile?.is_pro && <span className="rounded-full bg-emerald-500/20 px-3 py-1 text-xs font-bold text-emerald-400">PRO</span>}
+            <span className="text-sm text-slate-400">{session.user.email}</span>
+            <button onClick={() => supabase.auth.signOut()} className="flex items-center gap-1 rounded-xl border border-slate-700 px-3 py-1.5 text-sm text-slate-400 hover:text-white">
+              <LogOut size={14} /> Sign out
+            </button>
+          </div>
+        ) : (
+          <button onClick={() => setShowAuth(true)} className="flex items-center gap-2 rounded-xl border border-slate-700 px-4 py-2 text-sm font-bold text-slate-300 hover:border-orange-400 hover:text-white">
+            <LogIn size={16} /> Log in / Sign up
+          </button>
+        )}
+      </div>
+
       <section className="relative px-5 py-8 md:px-10 md:py-14">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(249,115,22,0.35),transparent_32%),radial-gradient(circle_at_bottom_left,rgba(14,165,233,0.2),transparent_30%),linear-gradient(135deg,rgba(15,23,42,1),rgba(2,6,23,1))]" />
         <div className="relative mx-auto grid max-w-7xl gap-8 md:grid-cols-2 md:items-center">
@@ -516,8 +564,8 @@ export default function FenceQuoteApp() {
           />
           <div className="mx-auto max-w-7xl px-5 pb-8 md:px-10">
             <AIQuoteChat
-              isPro={false}
-              sessionToken=""
+              isPro={profile?.is_pro ?? false}
+              sessionToken={session?.access_token ?? ""}
               initialContext={`${length}ft ${MATERIALS[material].label}, ${terrain} terrain, ${gates} gates, ZIP ${zip}`}
             />
           </div>
@@ -537,6 +585,13 @@ export default function FenceQuoteApp() {
           </Card>
         ))}
       </section>
+
+      {showAuth && (
+        <AuthModal
+          onClose={() => setShowAuth(false)}
+          onSuccess={(s) => { setSession(s); setShowAuth(false); }}
+        />
+      )}
 
       <style jsx global>{`.input{width:100%;border-radius:1rem;border:1px solid rgb(51 65 85);background:#020617;padding:0.85rem;color:white;outline:none}.input:focus{border-color:#fb923c}`}</style>
     </main>
