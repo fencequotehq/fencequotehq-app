@@ -84,7 +84,7 @@ export default function AIQuoteChat({ isPro, sessionToken, initialContext }: AIQ
     }
   }
 
-  if (false) {
+if (!isPro)   {
     return (
       <div className="rounded-2xl border border-orange-400/20 bg-slate-900 p-6 text-center">
         <Lock className="mx-auto mb-3 text-orange-400" size={28} />
