@@ -214,14 +214,14 @@ export default function FenceQuoteApp() {
       setSession(data.session);
       if (data.session) {
         supabase.from("profiles").select("is_pro").eq("id", data.session.user.id).single()
-          .then(({ data: p }) => setProfile(p));
+          .then(({ data: p, error }) => { console.log("Profile fetch:", error); setProfile(p); });
       }
     });
     const { data: listener } = supabase.auth.onAuthStateChange((_event, session) => {
       setSession(session);
       if (session) {
         supabase.from("profiles").select("is_pro").eq("id", session.user.id).single()
-          .then(({ data: p }) => setProfile(p));
+          .then(({ data: p, error }) => { console.log("Profile fetch:", error); setProfile(p); });
       } else {
         setProfile(null);
       }
